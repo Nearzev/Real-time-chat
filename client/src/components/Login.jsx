@@ -14,7 +14,14 @@ const Login = () => {
     const handleChange = ({target: {value, name}}) => {
         setChatValues({...chatValues, [name]: value})
     }
-    console.log(chatValues)
+    
+    const handleClick = (e) => {
+        const isDisabled = Object.values(chatValues).some((value) => !value);
+        if(isDisabled) {
+            e.preventDefault();
+        }
+    }
+
     return (
         <div className={styles.wrap}>
             <div className={styles.container}>
@@ -46,7 +53,11 @@ const Login = () => {
                         />
                     </div>
 
-                    <Link to={`/chat?name=${chatValues[USERNAME]}&room=${chatValues[ROOM]}}`}>
+                    <Link 
+                        className={styles.group} 
+                        onClick={handleClick}
+                        to={`/chat?name=${chatValues[USERNAME]}&room=${chatValues[ROOM]}}`}
+                    >
                         <button type='submit' className={styles.button}>Sing In</button>
                     </Link>
                 </form>
